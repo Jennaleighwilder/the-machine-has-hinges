@@ -120,29 +120,53 @@
     </section>
 
     <section id="human-level" class="living-world reveal" aria-labelledby="human-title">
-      <div class="living-hero">
-        <figure class="river-frame">
+      <div class="living-hero nature-immersive" data-active-scene="rain">
+        <div class="nature-video-stack" aria-hidden="true">
           <video
+            class="nature-video active"
+            data-nature-video="rain"
             autoplay
-            controls
             muted
             loop
             playsinline
             preload="metadata"
-            aria-label="Wild river flowing through forest habitat"
+          >
+            <source src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Rain_drops_-_Japan_-2016_July_20.webm" type="video/webm" />
+          </video>
+          <video
+            class="nature-video"
+            data-nature-video="river"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
           >
             <source src="https://upload.wikimedia.org/wikipedia/commons/8/8c/South_Fork_Clackamas_Wild_and_Scenic_River_%2828539305236%29.webm" type="video/webm" />
           </video>
-          <figcaption>Wild river video: Bureau of Land Management / Wikimedia Commons.</figcaption>
-        </figure>
-        <div class="living-copy">
+          <video
+            class="nature-video"
+            data-nature-video="bloom"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+          >
+            <source src="https://upload.wikimedia.org/wikipedia/commons/1/18/Timelapse_of_a_Serissa_japonica_flower_opening.webm" type="video/webm" />
+          </video>
+        </div>
+        <div class="nature-shade" aria-hidden="true"></div>
+        <div class="living-copy nature-copy">
           <p class="eyebrow">Human Level</p>
-          <h2 id="human-title">Before it is a docket, it is a home, a creek, a classroom, a creature.</h2>
+          <h2 id="human-title">Feel what the file protects.</h2>
           <p>
-            People move when the fight has a face. The same public file can protect a
-            family utility bill, a well, a school budget, a farm, a wetland, and the
-            living things that cannot testify at a hearing.
+            Rain on leaves. A creek over stone. A flower opening anyway.
+            Then the hard question: what public record keeps this from becoming
+            someone else's hidden cost?
           </p>
+          <div class="scene-controls" id="natureSceneControls" role="group" aria-label="Choose a nature teaching scene"></div>
+          <p class="nature-caption" id="natureCaption" aria-live="polite"></p>
           <div class="life-pulse" aria-label="Public resources that need protection">
             <span><b>tap water</b><i style="--level: 72%"></i></span>
             <span><b>home bills</b><i style="--level: 58%"></i></span>
@@ -161,10 +185,10 @@
           </figcaption>
         </figure>
         <figure class="living-card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Barack_Obama_speaks_with_farmers_about_California_drought%2C_2014.jpg" alt="Farmers and public officials standing in dry farmland during drought" loading="eager" />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/e/ec/20100406-NRCS-JMV-0006_-_Flickr_-_USDAgov.jpg" alt="Irrigation pipes and filters feeding water to drought-stressed farmland" loading="eager" />
           <figcaption>
             <strong>The livelihood</strong>
-            <span>Peak-day water demand matters when wells, farms, fire protection, and heat waves collide.</span>
+            <span>Water systems are lives and labor: wells, rivers, pumps, filters, crops, and heat.</span>
           </figcaption>
         </figure>
         <figure class="living-card">

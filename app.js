@@ -188,6 +188,24 @@ const lifeLenses = [
   }
 ];
 
+const natureScenes = [
+  {
+    id: "rain",
+    label: "Rain",
+    caption: "The file trail starts here: ask where the water comes from, who gets priority in drought, and whether cooling uses potable water."
+  },
+  {
+    id: "river",
+    label: "River",
+    caption: "A river is not a backdrop. Pull withdrawal permits, discharge permits, sewer capacity, fire-flow demand, and watershed stress records."
+  },
+  {
+    id: "bloom",
+    label: "Bloom",
+    caption: "The living world cannot attend a hearing. Habitat surveys, wetland delineations, species records, and cultural review put it in the room."
+  }
+];
+
 const hinges = [
   {
     id: "land",
@@ -416,6 +434,18 @@ const sources = [
   },
   {
     tag: "Media source",
+    title: "Rain drops video",
+    note: "Rain footage used in the immersive nature hero.",
+    url: "https://commons.wikimedia.org/wiki/File:Rain_drops_-_Japan_-2016_July_20.webm"
+  },
+  {
+    tag: "Media source",
+    title: "Serissa japonica flower opening video",
+    note: "Flower timelapse used in the immersive nature hero.",
+    url: "https://commons.wikimedia.org/wiki/File:Timelapse_of_a_Serissa_japonica_flower_opening.webm"
+  },
+  {
+    tag: "Media source",
     title: "Dixie Valley toad wetland image",
     note: "Wildlife and wetland image used to teach habitat and permit stakes.",
     url: "https://commons.wikimedia.org/wiki/File:Dixie_Valley_toad_in_its_wetland_habitat._(52201219510).jpg"
@@ -428,9 +458,9 @@ const sources = [
   },
   {
     tag: "Media source",
-    title: "California drought and farmers image",
-    note: "Drought and livelihood image used to connect peak-day water demand to real people.",
-    url: "https://commons.wikimedia.org/wiki/File:Barack_Obama_speaks_with_farmers_about_California_drought,_2014.jpg"
+    title: "USDA drought irrigation image",
+    note: "Drought and livelihood image used to connect peak-day water demand to farms, wells, rivers, and pumps.",
+    url: "https://commons.wikimedia.org/wiki/File:20100406-NRCS-JMV-0006_-_Flickr_-_USDAgov.jpg"
   },
   {
     tag: "Subsidies",
@@ -501,6 +531,8 @@ const stateSelect = document.getElementById("stateSelect");
 const stateOutput = document.getElementById("stateOutput");
 const lensButtons = document.getElementById("lensButtons");
 const lensOutput = document.getElementById("lensOutput");
+const natureSceneControls = document.getElementById("natureSceneControls");
+const natureCaption = document.getElementById("natureCaption");
 const impactInputs = {
   mw: document.getElementById("mwInput"),
   water: document.getElementById("waterInput"),
@@ -511,6 +543,55 @@ const impactInputs = {
 let selectedStage = stages[0].id;
 let selectedHinge = hinges[0].id;
 let selectedLens = lifeLenses[0].id;
+let selectedNatureScene = natureScenes[0].id;
+let natureCycleTimer;
+
+function renderNatureScenes() {
+  if (!natureSceneControls || !natureCaption) return;
+
+  natureSceneControls.innerHTML = natureScenes
+    .map(
+      (scene) => `<button type="button" class="${scene.id === selectedNatureScene ? "active" : ""}" data-nature-scene="${scene.id}" aria-pressed="${scene.id === selectedNatureScene}">${scene.label}</button>`
+    )
+    .join("");
+
+  natureSceneControls.querySelectorAll("[data-nature-scene]").forEach((button) => {
+    button.addEventListener("click", () => {
+      clearInterval(natureCycleTimer);
+      selectedNatureScene = button.dataset.natureScene;
+      renderNatureScenes();
+      applyNatureScene();
+    });
+  });
+
+  applyNatureScene();
+}
+
+function applyNatureScene() {
+  const scene = natureScenes.find((item) => item.id === selectedNatureScene) || natureScenes[0];
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll("[data-nature-video]").forEach((video) => {
+    const active = video.dataset.natureVideo === scene.id;
+    video.classList.toggle("active", active);
+    if (active && !reduceMotion) {
+      video.play().catch(() => {});
+    } else {
+      video.pause();
+    }
+  });
+  natureCaption.textContent = scene.caption;
+}
+
+function initNatureCycle() {
+  if (!natureSceneControls || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  clearInterval(natureCycleTimer);
+  natureCycleTimer = setInterval(() => {
+    const currentIndex = natureScenes.findIndex((scene) => scene.id === selectedNatureScene);
+    const nextScene = natureScenes[(currentIndex + 1) % natureScenes.length];
+    selectedNatureScene = nextScene.id;
+    renderNatureScenes();
+  }, 9000);
+}
 
 function renderLifeLensButtons() {
   if (!lensButtons || !lensOutput) return;
@@ -1203,6 +1284,8 @@ function initMap() {
 
 renderStageButtons();
 renderStageOutput();
+renderNatureScenes();
+initNatureCycle();
 renderLifeLensButtons();
 renderLifeLensOutput();
 renderPath();
