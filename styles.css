@@ -517,6 +517,15 @@ h3 {
   color: #eadfd1;
 }
 
+.image-credit {
+  position: absolute;
+  z-index: 1;
+  right: 1rem;
+  bottom: 0.7rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.78rem;
+}
+
 .infrastructure-band {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.72fr);
