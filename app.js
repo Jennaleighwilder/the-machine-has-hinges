@@ -188,73 +188,6 @@ const lifeLenses = [
   }
 ];
 
-const watershedScenarios = [
-  {
-    label: "Morning baseline",
-    title: "The town wakes up before the project arrives.",
-    body: "Homes, schools, farms, and habitat already share a limited system. Baseline records matter because they prove what capacity existed before a new large load entered.",
-    files: ["current water capacity", "current peak electric load", "school tax baseline", "existing habitat maps"],
-    style: {
-      "--grid-load": "36%",
-      "--water-stress": "24%",
-      "--bill-risk": "18%",
-      "--habitat-pressure": "28%",
-      "--sun-left": "18%",
-      "--sun-top": "18%",
-      "--river-depth": "74%",
-      "--heat-opacity": "0.04"
-    }
-  },
-  {
-    label: "Heat peak",
-    title: "The hot day is the truth test.",
-    body: "Peak-day demand is where averages fail. If cooling, homes, farms, and fire protection all need water during a heat wave, the public needs priority rules before approval.",
-    files: ["peak-day water demand", "drought curtailment plan", "cooling method", "fire-flow calculation"],
-    style: {
-      "--grid-load": "66%",
-      "--water-stress": "79%",
-      "--bill-risk": "42%",
-      "--habitat-pressure": "68%",
-      "--sun-left": "52%",
-      "--sun-top": "11%",
-      "--river-depth": "58%",
-      "--heat-opacity": "0.28"
-    }
-  },
-  {
-    label: "Secret deal",
-    title: "The private build can become a public bill.",
-    body: "Substations, transmission, water mains, road work, tax breaks, and emergency services can be hidden in bland agreements. Cost allocation is where the public gets protected or stuck.",
-    files: ["special service agreement", "substation cost estimate", "tax abatement", "infrastructure reimbursement"],
-    style: {
-      "--grid-load": "88%",
-      "--water-stress": "70%",
-      "--bill-risk": "86%",
-      "--habitat-pressure": "72%",
-      "--sun-left": "73%",
-      "--sun-top": "21%",
-      "--river-depth": "52%",
-      "--heat-opacity": "0.18"
-    }
-  },
-  {
-    label: "Public hearing",
-    title: "The file trail turns fear into enforceable conditions.",
-    body: "A community does not need to win every argument at once. It needs disclosure, delay where records are missing, and binding conditions that put full freight on the cost-causer.",
-    files: ["public records request", "written comment", "moratorium language", "community benefit agreement"],
-    style: {
-      "--grid-load": "54%",
-      "--water-stress": "45%",
-      "--bill-risk": "38%",
-      "--habitat-pressure": "40%",
-      "--sun-left": "36%",
-      "--sun-top": "20%",
-      "--river-depth": "68%",
-      "--heat-opacity": "0.06"
-    }
-  }
-];
-
 const hinges = [
   {
     id: "land",
@@ -495,9 +428,9 @@ const sources = [
   },
   {
     tag: "Media source",
-    title: "USDA drought irrigation image",
-    note: "Drought and livelihood image used to connect peak-day water demand to farms, wells, rivers, and pumps.",
-    url: "https://commons.wikimedia.org/wiki/File:20100406-NRCS-JMV-0006_-_Flickr_-_USDAgov.jpg"
+    title: "California drought and farmers image",
+    note: "Drought and livelihood image used to connect peak-day water demand to real people.",
+    url: "https://commons.wikimedia.org/wiki/File:Barack_Obama_speaks_with_farmers_about_California_drought,_2014.jpg"
   },
   {
     tag: "Subsidies",
@@ -568,10 +501,6 @@ const stateSelect = document.getElementById("stateSelect");
 const stateOutput = document.getElementById("stateOutput");
 const lensButtons = document.getElementById("lensButtons");
 const lensOutput = document.getElementById("lensOutput");
-const exhibitStage = document.getElementById("exhibitStage");
-const watershedSlider = document.getElementById("watershedSlider");
-const watershedLabel = document.getElementById("watershedLabel");
-const watershedOutput = document.getElementById("watershedOutput");
 const impactInputs = {
   mw: document.getElementById("mwInput"),
   water: document.getElementById("waterInput"),
@@ -613,29 +542,6 @@ function renderLifeLensOutput() {
     </div>
     <p><strong>Demand:</strong> ${lens.demand}</p>
   `;
-}
-
-function initWatershedExhibit() {
-  if (!exhibitStage || !watershedSlider || !watershedLabel || !watershedOutput) return;
-
-  function renderScenario() {
-    const scenario = watershedScenarios[Number(watershedSlider.value)] || watershedScenarios[0];
-    watershedLabel.textContent = scenario.label;
-    Object.entries(scenario.style).forEach(([property, value]) => {
-      exhibitStage.style.setProperty(property, value);
-    });
-    watershedOutput.innerHTML = `
-      <h3>${scenario.title}</h3>
-      <p>${scenario.body}</p>
-      <div>
-        <strong>Records that answer it</strong>
-        <ul>${scenario.files.map((file) => `<li>${file}</li>`).join("")}</ul>
-      </div>
-    `;
-  }
-
-  watershedSlider.addEventListener("input", renderScenario);
-  renderScenario();
 }
 
 function renderStageButtons() {
@@ -1299,7 +1205,6 @@ renderStageButtons();
 renderStageOutput();
 renderLifeLensButtons();
 renderLifeLensOutput();
-initWatershedExhibit();
 renderPath();
 renderHinges();
 renderHingeDetail();
