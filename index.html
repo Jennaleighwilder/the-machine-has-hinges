@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Machine Has Hinges | Data Center Accountability Kit</title>
+  <meta
+    name="description"
+    content="A practical field manual for communities investigating AI data centers, utility cost shifting, water use, permits, subsidies, and public accountability."
+  />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header class="topbar">
+    <a class="brand" href="#main" aria-label="The Machine Has Hinges home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>The Machine Has Hinges</span>
+    </a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#national-map">Map</a>
+      <a href="#data-room">Graphs</a>
+      <a href="#state-finder">State finder</a>
+      <a href="#action-path">Action path</a>
+      <a href="#templates">Templates</a>
+      <a href="#law-map">Law map</a>
+      <a href="#sources">Sources</a>
+    </nav>
+  </header>
+
+  <aside class="access-bar" aria-label="Accessibility and language controls">
+    <div>
+      <strong>Accessibility</strong>
+      <button type="button" id="fontUp">Larger text</button>
+      <button type="button" id="fontReset">Reset text</button>
+      <button type="button" id="toggleDyslexia">Dyslexia mode</button>
+      <button type="button" id="toggleContrast">High contrast</button>
+    </div>
+    <div class="translation-box">
+      <label for="languageSelect">Language support</label>
+      <select id="languageSelect">
+        <option value="en">English</option>
+        <option value="es">Spanish quick guide</option>
+      </select>
+      <div id="google_translate_element" aria-label="Optional Google Translate widget"></div>
+    </div>
+  </aside>
+
+  <main id="main">
+    <section class="console">
+      <div class="console-copy">
+        <p class="eyebrow">Data Center Accountability Kit</p>
+        <h1 data-i18n="heroTitle">Stop arguing with the cloud. Follow the permits.</h1>
+        <p class="lede" data-i18n="heroLede">
+          AI data centers are not just software. They are land, electricity, water,
+          tax incentives, air permits, utility contracts, shell LLCs, and local votes.
+          This site gives residents a step-by-step way to force those facts into public view.
+        </p>
+        <div class="doctrine" data-i18n="doctrine">
+          <strong>Operating doctrine:</strong>
+          Cost-causers pay. Public resources require public accounting. No blank checks
+          for private compute empires.
+        </div>
+      </div>
+
+      <aside class="triage-panel" aria-labelledby="triage-title">
+        <div class="panel-head">
+          <p class="eyebrow">Start Here</p>
+          <h2 id="triage-title">What stage is your fight in?</h2>
+        </div>
+        <div class="segmented" id="stageButtons" role="group" aria-label="Project stage selector"></div>
+        <div class="stage-output" id="stageOutput" aria-live="polite"></div>
+      </aside>
+    </section>
+
+    <section class="media-story" aria-labelledby="media-title">
+      <div class="media-lead">
+        <p class="eyebrow">National Field View</p>
+        <h2 id="media-title">Make the invisible infrastructure visible.</h2>
+        <p>
+          Use real imagery, public records, and source-backed data to teach people what
+          a data center fight actually is: not a chatbot argument, but a chain of land,
+          water, power, money, permits, and public decisions.
+        </p>
+      </div>
+      <div class="media-grid">
+        <figure class="media-card media-card-large">
+          <video
+            autoplay
+            controls
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            poster="https://upload.wikimedia.org/wikipedia/commons/1/1a/Black_Marble_Americas.jpg"
+            aria-label="NASA Black Marble rotating Earth at night"
+          >
+            <source src="https://svs.gsfc.nasa.gov/vis/a030000/a030800/a030878/BlackMarble_2016_rotate_1080p.mp4" type="video/mp4" />
+          </video>
+          <figcaption>NASA Black Marble imagery shows human infrastructure at planetary scale. Source: NASA / Wikimedia Commons.</figcaption>
+        </figure>
+        <figure class="media-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Google_Data_Center%2C_Council_Bluffs_Iowa_%2849062863796%29.jpg" alt="Google data center buildings in Council Bluffs, Iowa" loading="lazy" />
+          <figcaption>Data center infrastructure is physical, local, and documentable.</figcaption>
+        </figure>
+        <figure class="media-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Photograph_of_Transmission_Lines_in_Mojave_Desert_Leading_from_Boulder_Dam%2C_1941_-_NARA_-_519839.jpg" alt="Transmission lines crossing desert terrain" loading="lazy" />
+          <figcaption>The grid is the bloodstream. Follow substations, rate dockets, and interconnections.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="data-room" class="section-block">
+      <div class="section-heading">
+        <p class="eyebrow">Graphs</p>
+        <h2>Numbers that teach the fight</h2>
+        <p>
+          The goal is not panic. The goal is shared literacy: how big the load may get,
+          what water means, and where ratepayer protection enters the story.
+        </p>
+      </div>
+      <div class="chart-grid">
+        <article class="chart-card">
+          <div class="chart-head">
+            <h3>Global data center electricity demand</h3>
+            <p>IEA 2026: roughly doubling from 485 TWh in 2025 to 950 TWh in 2030.</p>
+          </div>
+          <canvas id="globalEnergyChart" height="220" aria-label="Line chart showing global data center electricity demand rising from 485 TWh in 2025 to 950 TWh in 2030"></canvas>
+        </article>
+        <article class="chart-card">
+          <div class="chart-head">
+            <h3>United States electricity share</h3>
+            <p>EPRI 2026: U.S. data centers could rise from 4-5% today to 9-17% by 2030.</p>
+          </div>
+          <canvas id="usRangeChart" height="220" aria-label="Range chart comparing current and projected U.S. data center electricity share"></canvas>
+        </article>
+        <article class="chart-card">
+          <div class="chart-head">
+            <h3>Water footprint is more than the cooling tower</h3>
+            <p>EESI frames water as on-site use, water used for electricity generation, and chip manufacturing.</p>
+          </div>
+          <canvas id="waterStackChart" height="220" aria-label="Stacked teaching chart for direct, indirect power generation, and manufacturing water footprint"></canvas>
+        </article>
+      </div>
+    </section>
+
+    <section id="national-map" class="section-block national-map-block">
+      <div class="section-heading">
+        <p class="eyebrow">USA Map</p>
+        <h2>National battlefield, local doors</h2>
+        <p>
+          This starter map is not a permit database. It teaches users which regional
+          documents to pull first: power, water, zoning, tax, and procurement records.
+        </p>
+      </div>
+      <div class="map-shell">
+        <div id="usaMap" role="img" aria-label="Interactive United States map with data center accountability learning markers"></div>
+        <aside class="map-panel">
+          <h3 id="mapPanelTitle">Select a marker</h3>
+          <p id="mapPanelBody">Markers highlight teaching examples. The rule is national: verify locally before publishing.</p>
+          <ul id="mapPanelList"></ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="infrastructure-band" aria-label="Infrastructure stack diagram">
+      <div class="stack-visual" aria-hidden="true">
+        <span class="node node-a">AI model</span>
+        <span class="node node-b">Cloud tenant</span>
+        <span class="node node-c">Project LLC</span>
+        <span class="node node-d">Utility</span>
+        <span class="node node-e">Water system</span>
+        <span class="node node-f">County vote</span>
+        <span class="line line-1"></span>
+        <span class="line line-2"></span>
+        <span class="line line-3"></span>
+        <span class="line line-4"></span>
+        <span class="line line-5"></span>
+      </div>
+      <div class="stack-copy">
+        <p class="eyebrow">The Actual Machine</p>
+        <h2>Software is the visible face. Infrastructure is the leverage.</h2>
+        <p>
+          Your campaign wins when it turns a vague technology story into named files:
+          land records, service agreements, water permits, air permits, tax abatements,
+          rate dockets, and public meeting minutes.
+        </p>
+      </div>
+    </section>
+
+    <section id="action-path" class="section-block">
+      <div class="section-heading">
+        <p class="eyebrow">Action Path</p>
+        <h2>From rumor to public pressure</h2>
+        <p>
+          Each step names the room, the records, and the immediate demand. Do them in order
+          if you are early. Jump to the active stage if the project is already moving.
+        </p>
+      </div>
+      <div class="path-grid" id="pathGrid"></div>
+    </section>
+
+    <section id="hinges" class="split-section">
+      <div class="section-heading">
+        <p class="eyebrow">Pressure Points</p>
+        <h2>Seven hinges to pull</h2>
+        <p>
+          Do not lead with a broad anti-tech argument. Lead with the specific public resource
+          the project needs and the public cost it may shift.
+        </p>
+      </div>
+      <div class="hinge-layout">
+        <div class="hinge-list" id="hingeList"></div>
+        <article class="hinge-detail" id="hingeDetail"></article>
+      </div>
+    </section>
+
+    <section id="templates" class="section-block">
+      <div class="section-heading">
+        <p class="eyebrow">Copy-Paste Tools</p>
+        <h2>Templates people can use today</h2>
+        <p>
+          These are not legal advice. They are clean starting points for public records,
+          utility comments, public meetings, moratoriums, and procurement rules.
+        </p>
+      </div>
+      <div class="template-grid" id="templateGrid"></div>
+    </section>
+
+    <section id="law-map" class="section-block">
+      <div class="section-heading">
+        <p class="eyebrow">Legal Threads</p>
+        <h2>Which law belongs to which problem?</h2>
+        <p>
+          The point is not to memorize law. The point is knowing which door to knock on
+          when a project touches air, water, land, culture, power, money, or public data.
+        </p>
+      </div>
+      <div class="law-grid" id="lawGrid"></div>
+    </section>
+
+    <section id="tracker" class="section-block tracker-section">
+      <div class="section-heading">
+        <p class="eyebrow">Build The Local Case File</p>
+        <h2>The spreadsheet spine</h2>
+        <p>
+          A public campaign becomes strong when every claim points to a docket, parcel,
+          agenda, permit, tariff, or agreement.
+        </p>
+      </div>
+      <div class="tracker-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>What to enter</th>
+              <th>Where to look</th>
+            </tr>
+          </thead>
+          <tbody id="trackerRows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="state-finder" class="section-block state-finder">
+      <div class="section-heading">
+        <p class="eyebrow">All 50 States</p>
+        <h2>Find the first doors in your state</h2>
+        <p>
+          Pick a state and the site builds the first public-records, utility,
+          environmental, company, and meeting searches. It is a teaching tool:
+          verify with official state and local sites before publishing claims.
+        </p>
+      </div>
+      <div class="state-shell">
+        <label class="state-picker" for="stateSelect">
+          Choose a state or D.C.
+          <select id="stateSelect"></select>
+        </label>
+        <article class="state-output" id="stateOutput" aria-live="polite"></article>
+      </div>
+    </section>
+
+    <section id="tennessee" class="region-band">
+      <div>
+        <p class="eyebrow">Regional Example: Tennessee / Appalachia</p>
+        <h2>Copy the method, not just the place.</h2>
+        <p>
+          In Tennessee, public records access has a citizen requirement in many agency
+          policies. Pair Tennessee residents with out-of-state researchers. Monitor TVA's
+          integrated resource planning, TDEC data viewers, industrial development boards,
+          water and sewer authorities, local power boards, and county planning agendas.
+        </p>
+      </div>
+      <div class="region-actions">
+        <a href="https://www.tva.com/irp" target="_blank" rel="noreferrer">TVA IRP</a>
+        <a href="https://www.tn.gov/environment/about-tdec/tdec-dataviewers.html" target="_blank" rel="noreferrer">TDEC Dataviewers</a>
+        <a href="https://comptroller.tn.gov/office-functions/open-records-counsel/open-meetings/frequently-asked-questions/tennessee-public-records-act-faqs.html" target="_blank" rel="noreferrer">TN Records FAQ</a>
+      </div>
+    </section>
+
+    <section id="sources" class="section-block">
+      <div class="section-heading">
+        <p class="eyebrow">Source Library</p>
+        <h2>Public records, law, research, and organizing guides</h2>
+        <p>
+          Use these links as the citation backbone for the site. Keep numbers dated and
+          avoid repeating claims that are not tied to a source.
+        </p>
+      </div>
+      <div class="source-grid" id="sourceGrid"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>
+      Built for lawful civic action: public records, hearings, comments, disclosure,
+      coalition work, and enforceable conditions. Do not trespass, threaten, sabotage,
+      or harass workers.
+    </p>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    window.googleTranslateElementInit = function () {
+      if (window.google && window.google.translate) {
+        new window.google.translate.TranslateElement(
+          { pageLanguage: "en", layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE },
+          "google_translate_element"
+        );
+      }
+    };
+  </script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script src="app.js"></script>
+</body>
+</html>
