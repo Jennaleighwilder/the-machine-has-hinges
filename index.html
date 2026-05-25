@@ -8,6 +8,7 @@
     name="description"
     content="A practical field manual for communities investigating AI data centers, utility cost shifting, water use, permits, subsidies, and public accountability."
   />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23151515'/%3E%3Cpath d='M8 8h20v20H8zM36 8h20v20H36zM8 36h20v20H8zM36 36h20v20H36z' fill='%23b83a2f'/%3E%3Cpath d='M30 0h4v64h-4zM0 30h64v4H0z' fill='%23f6f1e8'/%3E%3C/svg%3E" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -20,6 +21,7 @@
     </a>
     <nav class="nav-links" aria-label="Main navigation">
       <a href="#stakes">Stakes</a>
+      <a href="#human-level">Human level</a>
       <a href="#national-map">Map</a>
       <a href="#data-room">Graphs</a>
       <a href="#impact-lab">Impact lab</a>
@@ -115,6 +117,77 @@
         </article>
       </div>
       <p class="image-credit">Drought lakebed image: U.S. government / Wikimedia Commons.</p>
+    </section>
+
+    <section id="human-level" class="living-world reveal" aria-labelledby="human-title">
+      <div class="living-hero">
+        <figure class="river-frame">
+          <video
+            autoplay
+            controls
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            aria-label="Wild river flowing through forest habitat"
+          >
+            <source src="https://upload.wikimedia.org/wikipedia/commons/8/8c/South_Fork_Clackamas_Wild_and_Scenic_River_%2828539305236%29.webm" type="video/webm" />
+          </video>
+          <figcaption>Wild river video: Bureau of Land Management / Wikimedia Commons.</figcaption>
+        </figure>
+        <div class="living-copy">
+          <p class="eyebrow">Human Level</p>
+          <h2 id="human-title">Before it is a docket, it is a home, a creek, a classroom, a creature.</h2>
+          <p>
+            People move when the fight has a face. The same public file can protect a
+            family utility bill, a well, a school budget, a farm, a wetland, and the
+            living things that cannot testify at a hearing.
+          </p>
+          <div class="life-pulse" aria-label="Public resources that need protection">
+            <span><b>tap water</b><i style="--level: 72%"></i></span>
+            <span><b>home bills</b><i style="--level: 58%"></i></span>
+            <span><b>school money</b><i style="--level: 64%"></i></span>
+            <span><b>habitat</b><i style="--level: 81%"></i></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="living-grid" aria-label="Human, land, and wildlife stakes">
+        <figure class="living-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/District_staff_attend_town_hall_meeting_%289301794023%29.jpg" alt="Residents and public officials seated at a town hall meeting" loading="eager" />
+          <figcaption>
+            <strong>The room</strong>
+            <span>Every project has a vote, a docket, or a board packet. Get people into that room early.</span>
+          </figcaption>
+        </figure>
+        <figure class="living-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Barack_Obama_speaks_with_farmers_about_California_drought%2C_2014.jpg" alt="Farmers and public officials standing in dry farmland during drought" loading="eager" />
+          <figcaption>
+            <strong>The livelihood</strong>
+            <span>Peak-day water demand matters when wells, farms, fire protection, and heat waves collide.</span>
+          </figcaption>
+        </figure>
+        <figure class="living-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/Dixie_Valley_toad_in_its_wetland_habitat._%2852201219510%29.jpg" alt="A Dixie Valley toad sitting in green wetland habitat" loading="eager" />
+          <figcaption>
+            <strong>The creature</strong>
+            <span>Wetlands, streams, and species are part of the public record when permits touch water or habitat.</span>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="life-lens" aria-labelledby="lens-title">
+        <div>
+          <p class="eyebrow">Teaching Lens</p>
+          <h3 id="lens-title">Pick who you are protecting first.</h3>
+          <p>
+            The strongest campaign translates a technical project into one clear
+            human or ecological question, then ties that question to a public record.
+          </p>
+        </div>
+        <div class="lens-buttons" id="lensButtons" role="group" aria-label="Choose a human or ecological protection lens"></div>
+        <article class="lens-output" id="lensOutput" aria-live="polite"></article>
+      </div>
     </section>
 
     <section class="media-story" aria-labelledby="media-title">

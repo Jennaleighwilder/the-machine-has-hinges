@@ -153,6 +153,41 @@ const pathSteps = [
   }
 ];
 
+const lifeLenses = [
+  {
+    id: "resident",
+    label: "Resident",
+    title: "Will ordinary bills rise for private compute?",
+    body: "A resident does not need to debate AI philosophy. They can ask whether a private large-load customer is shifting grid, water, sewer, road, or emergency-service costs onto households.",
+    records: ["large-load tariff", "special service agreement", "rate-case testimony", "substation cost estimate"],
+    demand: "Separate rate class, minimum demand charges, and written proof that residential customers are not subsidizing the project."
+  },
+  {
+    id: "water",
+    label: "Water system",
+    title: "What happens on the hottest, driest day?",
+    body: "Annual averages can hide peak-day stress. Water operators, farmers, fire districts, and households need the same answer: who has priority when heat, drought, and cooling demand collide?",
+    records: ["water service agreement", "withdrawal registration", "peak-day demand", "drought curtailment plan"],
+    demand: "Disclose source, cooling method, average and peak use, potable-water use, reclaimed-water options, and drought shutoff rules."
+  },
+  {
+    id: "school",
+    label: "School budget",
+    title: "Does the tax deal help students or hollow out the base?",
+    body: "Data centers can be expensive to build and low in permanent jobs. If a subsidy reduces school or county revenue, the public deserves a plain return-on-investment table.",
+    records: ["tax abatement", "PILOT agreement", "school revenue impact", "clawback terms"],
+    demand: "No subsidy without total public value, school impact, permanent jobs, enforceable clawbacks, and annual performance reports."
+  },
+  {
+    id: "habitat",
+    label: "Creature",
+    title: "What living habitat is inside the permit boundary?",
+    body: "A wetland, stream, species, or cultural landscape can turn a private project into a public review. The living world belongs in the case file too.",
+    records: ["wetland delineation", "Section 404 permit", "species survey", "cultural resource review"],
+    demand: "Avoidance first, then enforceable mitigation, public monitoring, and no rushed approval before habitat and cultural reviews are complete."
+  }
+];
+
 const hinges = [
   {
     id: "land",
@@ -374,6 +409,30 @@ const sources = [
     url: "https://www.eesi.org/articles/view/data-centers-and-water-consumption"
   },
   {
+    tag: "Media source",
+    title: "Wild and Scenic River video",
+    note: "Bureau of Land Management river footage used for the human-level living-world section.",
+    url: "https://commons.wikimedia.org/wiki/File:South_Fork_Clackamas_Wild_and_Scenic_River_(28539305236).webm"
+  },
+  {
+    tag: "Media source",
+    title: "Dixie Valley toad wetland image",
+    note: "Wildlife and wetland image used to teach habitat and permit stakes.",
+    url: "https://commons.wikimedia.org/wiki/File:Dixie_Valley_toad_in_its_wetland_habitat._(52201219510).jpg"
+  },
+  {
+    tag: "Media source",
+    title: "Town hall meeting image",
+    note: "Public meeting image used to show the human room where local power can enter.",
+    url: "https://commons.wikimedia.org/wiki/File:District_staff_attend_town_hall_meeting_(9301794023).jpg"
+  },
+  {
+    tag: "Media source",
+    title: "California drought and farmers image",
+    note: "Drought and livelihood image used to connect peak-day water demand to real people.",
+    url: "https://commons.wikimedia.org/wiki/File:Barack_Obama_speaks_with_farmers_about_California_drought,_2014.jpg"
+  },
+  {
     tag: "Subsidies",
     title: "Good Jobs First on data center tax breaks",
     note: "Shows disclosure gaps and why communities should demand full subsidy and job-performance reporting.",
@@ -440,6 +499,8 @@ const trackerRowsEl = document.getElementById("trackerRows");
 const sourceGrid = document.getElementById("sourceGrid");
 const stateSelect = document.getElementById("stateSelect");
 const stateOutput = document.getElementById("stateOutput");
+const lensButtons = document.getElementById("lensButtons");
+const lensOutput = document.getElementById("lensOutput");
 const impactInputs = {
   mw: document.getElementById("mwInput"),
   water: document.getElementById("waterInput"),
@@ -449,6 +510,39 @@ const impactInputs = {
 
 let selectedStage = stages[0].id;
 let selectedHinge = hinges[0].id;
+let selectedLens = lifeLenses[0].id;
+
+function renderLifeLensButtons() {
+  if (!lensButtons || !lensOutput) return;
+
+  lensButtons.innerHTML = lifeLenses
+    .map(
+      (lens) => `<button type="button" class="${lens.id === selectedLens ? "active" : ""}" data-lens="${lens.id}" aria-pressed="${lens.id === selectedLens}">${lens.label}</button>`
+    )
+    .join("");
+
+  lensButtons.querySelectorAll("[data-lens]").forEach((button) => {
+    button.addEventListener("click", () => {
+      selectedLens = button.dataset.lens;
+      renderLifeLensButtons();
+      renderLifeLensOutput();
+    });
+  });
+}
+
+function renderLifeLensOutput() {
+  if (!lensOutput) return;
+  const lens = lifeLenses.find((item) => item.id === selectedLens);
+  lensOutput.innerHTML = `
+    <h3>${lens.title}</h3>
+    <p>${lens.body}</p>
+    <div>
+      <strong>Records to pull</strong>
+      <ul>${lens.records.map((item) => `<li>${item}</li>`).join("")}</ul>
+    </div>
+    <p><strong>Demand:</strong> ${lens.demand}</p>
+  `;
+}
 
 function renderStageButtons() {
   stageButtons.innerHTML = stages
@@ -1109,6 +1203,8 @@ function initMap() {
 
 renderStageButtons();
 renderStageOutput();
+renderLifeLensButtons();
+renderLifeLensOutput();
 renderPath();
 renderHinges();
 renderHingeDetail();
