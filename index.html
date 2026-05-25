@@ -19,8 +19,10 @@
       <span>The Machine Has Hinges</span>
     </a>
     <nav class="nav-links" aria-label="Main navigation">
+      <a href="#stakes">Stakes</a>
       <a href="#national-map">Map</a>
       <a href="#data-room">Graphs</a>
+      <a href="#impact-lab">Impact lab</a>
       <a href="#state-finder">State finder</a>
       <a href="#action-path">Action path</a>
       <a href="#templates">Templates</a>
@@ -50,6 +52,15 @@
   <main id="main">
     <section class="console">
       <div class="console-copy">
+        <div class="pulse-rail" aria-hidden="true">
+          <span class="pulse-label">Public resource alert</span>
+          <div class="pulse-grid">
+            <span><b>Land</b><i></i></span>
+            <span><b>Water</b><i></i></span>
+            <span><b>Power</b><i></i></span>
+            <span><b>Money</b><i></i></span>
+          </div>
+        </div>
         <p class="eyebrow">Data Center Accountability Kit</p>
         <h1 data-i18n="heroTitle">Stop arguing with the cloud. Follow the permits.</h1>
         <p class="lede" data-i18n="heroLede">
@@ -72,6 +83,37 @@
         <div class="segmented" id="stageButtons" role="group" aria-label="Project stage selector"></div>
         <div class="stage-output" id="stageOutput" aria-live="polite"></div>
       </aside>
+    </section>
+
+    <section id="stakes" class="stakes-cinema reveal" aria-labelledby="stakes-title">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/California_Drought_Dry_Lakebed_2009.jpg" alt="Dry lakebed during drought in California" />
+      <div class="stakes-copy">
+        <p class="eyebrow">What Is At Stake</p>
+        <h2 id="stakes-title">This is not abstract. It is taps, bills, schools, and watersheds.</h2>
+        <p>
+          A data center is a local event before it is a global technology story.
+          It asks for electricity, water, land-use permission, tax treatment, emergency
+          services, and secrecy. The public question is simple: who pays, who drinks,
+          who signs, and who is left with the risk?
+        </p>
+      </div>
+      <div class="stakes-callouts" aria-label="Core public accountability questions">
+        <article>
+          <span>01</span>
+          <strong>Who loses capacity?</strong>
+          <p>Water systems, grid capacity, and land are finite public realities.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <strong>Who gets the deal?</strong>
+          <p>Shell LLCs, subsidies, and NDAs can hide the real beneficiary.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <strong>Who can stop it?</strong>
+          <p>Planning boards, utility commissions, water agencies, auditors, and voters.</p>
+        </article>
+      </div>
     </section>
 
     <section class="media-story" aria-labelledby="media-title">
@@ -145,6 +187,52 @@
       </div>
     </section>
 
+    <section id="impact-lab" class="impact-lab reveal" aria-labelledby="impact-title">
+      <div class="section-heading">
+        <p class="eyebrow">Impact Lab</p>
+        <h2 id="impact-title">Translate scale into questions officials must answer.</h2>
+        <p>
+          This is a teaching calculator, not a final engineering model. Use it to
+          help residents understand why megawatts, water, subsidies, and jobs belong
+          in the same public meeting.
+        </p>
+      </div>
+      <div class="lab-shell">
+        <form class="lab-controls" aria-label="Data center impact teaching calculator controls">
+          <label>
+            Facility load: <output id="mwOutput">250 MW</output>
+            <input id="mwInput" type="range" min="25" max="750" step="25" value="250" />
+          </label>
+          <label>
+            Water demand: <output id="waterOutput">2.0 million gal/day</output>
+            <input id="waterInput" type="range" min="0" max="5" step="0.1" value="2" />
+          </label>
+          <label>
+            Public subsidy: <output id="subsidyOutput">$150M</output>
+            <input id="subsidyInput" type="range" min="0" max="800" step="25" value="150" />
+          </label>
+          <label>
+            Permanent jobs promised: <output id="jobsOutput">75</output>
+            <input id="jobsInput" type="range" min="10" max="500" step="5" value="75" />
+          </label>
+        </form>
+        <div class="lab-results" aria-live="polite">
+          <article>
+            <span id="homesResult">192,000</span>
+            <p>home-equivalent average load to ask about in the utility docket</p>
+          </article>
+          <article>
+            <span id="poolsResult">3.0</span>
+            <p>Olympic pools per day to ask about in water and drought plans</p>
+          </article>
+          <article>
+            <span id="jobCostResult">$2.0M</span>
+            <p>public subsidy per permanent job to ask about in incentive votes</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section id="national-map" class="section-block national-map-block">
       <div class="section-heading">
         <p class="eyebrow">USA Map</p>
@@ -186,6 +274,28 @@
           land records, service agreements, water permits, air permits, tax abatements,
           rate dockets, and public meeting minutes.
         </p>
+      </div>
+    </section>
+
+    <section id="field-sprint" class="field-sprint reveal" aria-labelledby="sprint-title">
+      <div>
+        <p class="eyebrow">Seven-Day Field Sprint</p>
+        <h2 id="sprint-title">Turn fear into a file trail.</h2>
+        <p>
+          Check these off as you build the case. The goal is not to make everyone
+          an expert overnight. The goal is to make the next public meeting impossible
+          to wave away.
+        </p>
+      </div>
+      <div class="sprint-board">
+        <div class="sprint-meter" aria-hidden="true"><span id="sprintProgress"></span></div>
+        <p id="sprintStatus" aria-live="polite">0 of 6 moves complete.</p>
+        <label><input type="checkbox" class="sprint-check" /> Create one shared project folder and tracker row.</label>
+        <label><input type="checkbox" class="sprint-check" /> Pull the deed, parcel, LLC, and registered agent.</label>
+        <label><input type="checkbox" class="sprint-check" /> File one public records request for water, power, tax, and emails.</label>
+        <label><input type="checkbox" class="sprint-check" /> Find the next hearing date and submit written comments.</label>
+        <label><input type="checkbox" class="sprint-check" /> Recruit three neighbors or groups with different concerns.</label>
+        <label><input type="checkbox" class="sprint-check" /> Ask officials one clean question: who pays full freight?</label>
       </div>
     </section>
 

@@ -440,6 +440,12 @@ const trackerRowsEl = document.getElementById("trackerRows");
 const sourceGrid = document.getElementById("sourceGrid");
 const stateSelect = document.getElementById("stateSelect");
 const stateOutput = document.getElementById("stateOutput");
+const impactInputs = {
+  mw: document.getElementById("mwInput"),
+  water: document.getElementById("waterInput"),
+  subsidy: document.getElementById("subsidyInput"),
+  jobs: document.getElementById("jobsInput")
+};
 
 let selectedStage = stages[0].id;
 let selectedHinge = hinges[0].id;
@@ -654,6 +660,93 @@ function renderStateFinder() {
   stateSelect.addEventListener("change", updateState);
   stateSelect.value = "VA";
   updateState();
+}
+
+function formatNumber(value) {
+  return new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(value);
+}
+
+function initImpactLab() {
+  const mwOutput = document.getElementById("mwOutput");
+  const waterOutput = document.getElementById("waterOutput");
+  const subsidyOutput = document.getElementById("subsidyOutput");
+  const jobsOutput = document.getElementById("jobsOutput");
+  const homesResult = document.getElementById("homesResult");
+  const poolsResult = document.getElementById("poolsResult");
+  const jobCostResult = document.getElementById("jobCostResult");
+
+  if (!impactInputs.mw || !homesResult) return;
+
+  function updateLab() {
+    const mw = Number(impactInputs.mw.value);
+    const water = Number(impactInputs.water.value);
+    const subsidy = Number(impactInputs.subsidy.value);
+    const jobs = Number(impactInputs.jobs.value);
+    const homes = Math.round((mw * 1000) / 1.3);
+    const pools = water / 0.66;
+    const jobCost = jobs > 0 ? subsidy / jobs : 0;
+
+    mwOutput.textContent = `${mw} MW`;
+    waterOutput.textContent = `${water.toFixed(1)} million gal/day`;
+    subsidyOutput.textContent = `$${subsidy}M`;
+    jobsOutput.textContent = formatNumber(jobs);
+    homesResult.textContent = formatNumber(homes);
+    poolsResult.textContent = pools.toFixed(1);
+    jobCostResult.textContent = `$${jobCost.toFixed(1)}M`;
+  }
+
+  Object.values(impactInputs).forEach((input) => {
+    if (input) input.addEventListener("input", updateLab);
+  });
+
+  updateLab();
+}
+
+function initSprint() {
+  const checks = Array.from(document.querySelectorAll(".sprint-check"));
+  const bar = document.getElementById("sprintProgress");
+  const status = document.getElementById("sprintStatus");
+  if (!checks.length || !bar || !status) return;
+
+  const saved = JSON.parse(localStorage.getItem("fieldSprint") || "[]");
+  checks.forEach((check, index) => {
+    check.checked = Boolean(saved[index]);
+  });
+
+  function updateSprint() {
+    const states = checks.map((check) => check.checked);
+    const complete = states.filter(Boolean).length;
+    const percent = Math.round((complete / checks.length) * 100);
+    bar.style.width = `${percent}%`;
+    status.textContent = `${complete} of ${checks.length} moves complete.`;
+    localStorage.setItem("fieldSprint", JSON.stringify(states));
+  }
+
+  checks.forEach((check) => check.addEventListener("change", updateSprint));
+  updateSprint();
+}
+
+function initRevealMotion() {
+  const panels = Array.from(document.querySelectorAll(".reveal"));
+  if (!panels.length) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
+    panels.forEach((panel) => panel.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.14 }
+  );
+
+  panels.forEach((panel) => observer.observe(panel));
 }
 
 const translations = {
@@ -1025,6 +1118,9 @@ renderTrackerRows();
 renderSources();
 renderStateFinder();
 initAccessibilityControls();
+initImpactLab();
+initSprint();
+initRevealMotion();
 renderCharts();
 initMap();
 
